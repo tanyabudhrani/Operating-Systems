@@ -1,7 +1,5 @@
 # lecture 4
 
-Created: February 4, 2024 1:42 AM
-
 # processes
 
 - the terms **process** and **job** are used almost interchangeably in most textbooks— however, a process includes:
@@ -33,8 +31,6 @@ Created: February 4, 2024 1:42 AM
     | ready | process is waiting to be assigned to a processor or CPU for execution  |
     | terminated | process has finished execution |
 
-![Screenshot 2024-02-04 at 8.06.58 PM.png](lecture%204%2012848cbe65e84e84a542a453f47e8d76/Screenshot_2024-02-04_at_8.06.58_PM.png)
-
 ## process control block
 
 - each process is represented by a **process control block**
@@ -53,8 +49,6 @@ Created: February 4, 2024 1:42 AM
 
 - an example that process $P_0$ passes the CPU to process $P_1$ when $P_0$ is interrupted or executes a system call
 
-![Screenshot 2024-02-04 at 8.50.55 PM.png](lecture%204%2012848cbe65e84e84a542a453f47e8d76/Screenshot_2024-02-04_at_8.50.55_PM.png)
-
 ## process scheduling queues
 
 - **job queue**:
@@ -68,14 +62,6 @@ Created: February 4, 2024 1:42 AM
 - processes migrate (i.e. move) among the various queues
     - a process on ready queue gets CPU and may later wait for I/O at the device queue
 - a **process scheduler for each type of queues** determines who will get service next
-
-## ready and I/O device queues
-
-![Screenshot 2024-02-04 at 8.53.09 PM.png](lecture%204%2012848cbe65e84e84a542a453f47e8d76/Screenshot_2024-02-04_at_8.53.09_PM.png)
-
-## process life cycle
-
-![Screenshot 2024-02-04 at 8.53.50 PM.png](lecture%204%2012848cbe65e84e84a542a453f47e8d76/Screenshot_2024-02-04_at_8.53.50_PM.png)
 
 # scheduler
 
@@ -140,8 +126,6 @@ Created: February 4, 2024 1:42 AM
 - when there are **few processes** using CPU, some removed processes should be returned to ready queue
 - control multi-programming degree after process admission— if not done carefully, this could lead to **thrashing**
 
-![Screenshot 2024-02-04 at 9.39.50 PM.png](lecture%204%2012848cbe65e84e84a542a453f47e8d76/Screenshot_2024-02-04_at_9.39.50_PM.png)
-
 # context switching
 
 - **short-term scheduler** controls which process gets CPU next
@@ -151,8 +135,6 @@ Created: February 4, 2024 1:42 AM
     - after deciding on successor of CPU, scheduler changes the PC and returns from interrupt/system call to the new process
 - context switching time is a kind of overhead since system does no useful work while switching from one process to another
     - time cost is dependent on hardware support
-
-![Screenshot 2024-02-04 at 9.41.53 PM.png](lecture%204%2012848cbe65e84e84a542a453f47e8d76/Screenshot_2024-02-04_at_9.41.53_PM.png)
 
 - process $P_0$ is switched to process $P_1$— assume that the interrupt is a time-expire interrupt or a system call to I/O
 
@@ -191,13 +173,9 @@ ps -Helf
 
 - in linux, full hierarchy could be obtained by `pstree` command
     
-    ![Screenshot 2024-02-04 at 9.46.10 PM.png](lecture%204%2012848cbe65e84e84a542a453f47e8d76/Screenshot_2024-02-04_at_9.46.10_PM.png)
-    
 - use `fork` system call to create new process
 - to replace process memory with a new program, use `exec` and its family of system calls
 - parent uses `wait` to collect child and then continues
-
-![Screenshot 2024-02-04 at 9.47.12 PM.png](lecture%204%2012848cbe65e84e84a542a453f47e8d76/Screenshot_2024-02-04_at_9.47.12_PM.png)
 
 ## process termination
 
@@ -277,20 +255,11 @@ int main() {
 
 - process with pid 0 is the **swapper for paging**, and process with pid 1 is the **first process running for starting up and shutting down unix**
 
-![Screenshot 2024-02-04 at 9.59.07 PM.png](lecture%204%2012848cbe65e84e84a542a453f47e8d76/Screenshot_2024-02-04_at_9.59.07_PM.png)
-
 - in the example above, a process has its parent process 1
     - a student process is doing something and somehow never finishes (still running), but the original shell process for the session has terminated (logged out) the process becomes an orphan and is adopted by process 1 as the new parent
 
 > note that process 1 on apollo (CentOS Linux) is called `systemd` (i.e. **system daemon**) instead of `init`
 process 1 on MacOS is called `launchd` (i.e. **launch daemon**) instead of `init`
-> 
-
-![Screenshot 2024-02-04 at 10.02.32 PM.png](lecture%204%2012848cbe65e84e84a542a453f47e8d76/Screenshot_2024-02-04_at_10.02.32_PM.png)
-
-## unix process state transition
-
-![Screenshot 2024-02-04 at 10.03.55 PM.png](lecture%204%2012848cbe65e84e84a542a453f47e8d76/Screenshot_2024-02-04_at_10.03.55_PM.png)
 
 ## cooperating processes
 
@@ -328,14 +297,7 @@ process 1 on MacOS is called `launchd` (i.e. **launch daemon**) instead of `init
     - communication link could be **physical** (e.g., shared memory, hardware bus) or **logical** (e.g., channel or socket)
 
 ## synchronization
-
-![Screenshot 2024-02-04 at 10.08.01 PM.png](lecture%204%2012848cbe65e84e84a542a453f47e8d76/Screenshot_2024-02-04_at_10.08.01_PM.png)
-
 - concurrent access to shared data by cooperating processes (or threads) may make data inconsistent
     - in producer-consumer problem, what happens if a producer is producing an item when the consumer is attempting to take it at the same time? what would happen if multiple consumers are taking out the same item?
 - **synchronization** ensures the orderly execution of cooperating processes that share a logical address space to guarantee data consistency
     - synchronization requests processes to wait for the signal to go ahead, to **avoid the race condition** (e.g. sleeping barber problem, reader-writer problem, society room problem)
-
-### a simple race situation
-
-![Screenshot 2024-02-04 at 10.09.06 PM.png](lecture%204%2012848cbe65e84e84a542a453f47e8d76/Screenshot_2024-02-04_at_10.09.06_PM.png)
