@@ -1,7 +1,5 @@
 # lecture 3
 
-Created: January 24, 2024 6:37 PM
-
 ## common terms
 
 | OS terms | general terms |
@@ -120,8 +118,6 @@ Created: January 24, 2024 6:37 PM
     
 - you could use **octal** to represent the target mode you want to set the file f to (e.g. `chmod 644 f` will assign access privilege `-rw-r—r—` to file f)
 - you would see a “`*`” after a file name if it can be executed (with x) under normal unix/linux file systems
-
-![Screenshot 2024-01-31 at 3.02.22 PM.png](lecture%203%200cb3cbaa2913407d826dda0db8f32742/Screenshot_2024-01-31_at_3.02.22_PM.png)
 
 ## memory of older commands
 
@@ -246,7 +242,6 @@ Created: January 24, 2024 6:37 PM
     - often called **shell scripts**
 
 > in ms-dos, [command.com](http://command.com) is like the shell
-> 
 
 # scripting languages
 
@@ -285,8 +280,6 @@ Created: January 24, 2024 6:37 PM
 - syntax often strange and program hard to understand
 - protection against accidental mistakes is weak
 - occasional bugs around
-
-![Screenshot 2024-01-25 at 8.36.26 PM.png](lecture%203%200cb3cbaa2913407d826dda0db8f32742/Screenshot_2024-01-25_at_8.36.26_PM.png)
 
 # shell
 
@@ -585,7 +578,6 @@ $ echo $p3
     - `chmod 700 file` or `chmod u+x file`
 
 > warning: never create a shell script called `test`
-> 
 
 ## magic behind magic numbers
 
@@ -627,12 +619,6 @@ $ echo $p3
 ```bash
 od -c -x lab1.pdf | more
 ```
-
-![Screenshot 2024-01-31 at 10.10.11 PM.png](lecture%203%200cb3cbaa2913407d826dda0db8f32742/Screenshot_2024-01-31_at_10.10.11_PM.png)
-
-### big endian and little endian
-
-![Screenshot 2024-01-31 at 10.10.57 PM.png](lecture%203%200cb3cbaa2913407d826dda0db8f32742/Screenshot_2024-01-31_at_10.10.57_PM.png)
 
 # reading input
 
@@ -903,16 +889,6 @@ done
 
 - the variable `${!#}` contains the last argument
 
-## special variables
-
-| $*
-$@ | positional parameters (arguments to script), starting from one
-when the expansion occurs within double quotes, it expands to a single word or separate word respectively |
-| --- | --- |
-| $# | number of positional parameters (arguments) |
-| $? | exit status of the most recently executed command |
-| $$ | process ID of the shell |
-| $0 | name of the shell or shell script |
 
 ### example
 
