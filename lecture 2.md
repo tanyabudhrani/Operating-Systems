@@ -1,7 +1,5 @@
 # lecture 2
 
-Created: January 14, 2024 9:28 PM
-
 ## operating system mechanism
 
 - since the OS is a program itself and a process is a program in execution, the OS is essentially one or more processes— when there are multiple processes executing, how can the OS control and manage them?
@@ -14,10 +12,6 @@ Created: January 14, 2024 9:28 PM
     - the event that I/O completed causes an interrupt
     - the suspension of current work to handle the event is called **interrupt processing**
 
- 
-
-![Screenshot 2024-01-15 at 1.31.59 PM.png](lecture%202%20ce1535ee14d641afbbd19ec4b863c9a9/Screenshot_2024-01-15_at_1.31.59_PM.png)
-
 ## synchronous processing
 
 - after I/O starts, user program will wait until I/O completion and does nothing or until interrupt is received
@@ -28,13 +22,9 @@ Created: January 14, 2024 9:28 PM
 - after I/O starts, user program continues to execute without waiting for I/O to complete, only after does it receive an interrupt
 - there could be several I/O requests working together
 
-![Screenshot 2024-01-15 at 1.34.16 PM.png](lecture%202%20ce1535ee14d641afbbd19ec4b863c9a9/Screenshot_2024-01-15_at_1.34.16_PM.png)
-
 ### device status table
 
 - you can use a **device-status table** to store the status for each I/O device with its type and state
-
-![Screenshot 2024-01-15 at 1.35.11 PM.png](lecture%202%20ce1535ee14d641afbbd19ec4b863c9a9/Screenshot_2024-01-15_at_1.35.11_PM.png)
 
 # interrupt processing
 
@@ -52,8 +42,6 @@ Created: January 14, 2024 9:28 PM
 - a non-maskable interrupt may be “over” interrupted by another non-maskable higher priority interrupt
 
 ### example
-
-![Screenshot 2024-01-24 at 11.29.08 AM.png](lecture%202%20ce1535ee14d641afbbd19ec4b863c9a9/Screenshot_2024-01-24_at_11.29.08_AM.png)
 
 - depending on the cause of interrupts, we can classify them into 3 categories
     
@@ -73,8 +61,6 @@ Created: January 14, 2024 9:28 PM
 
 ### high priority
 
-![Screenshot 2024-01-15 at 1.42.49 PM.png](lecture%202%20ce1535ee14d641afbbd19ec4b863c9a9/Screenshot_2024-01-15_at_1.42.49_PM.png)
-
 - the procedure is called the **interrupt handler**, or **interrupt service routine (ISR)** and is executed in response to the interrupt
 - after the interrupt is serviced, the CPU resumes the suspended program and returns to the next instruction pointed to by the saved PC
 
@@ -88,8 +74,6 @@ Created: January 14, 2024 9:28 PM
     - a **trap** is a software-generated interrupt caused either by an error or a user request— **software errors generate exceptions or traps**
 - **the timer mechanism**: a simple way to prevent infinite loop and resources hogging by processes by setting an interrupt to occur after a specific time period
     - **watchdog timer**: operating system decrements counter upon timer interrupt— when counter reaches zero, something wrong happens, so it kills the process or takes back resources (e.g. unlocking a file) via the timer interrupt mechanism
-
-![Screenshot 2024-01-24 at 11.34.53 AM.png](lecture%202%20ce1535ee14d641afbbd19ec4b863c9a9/Screenshot_2024-01-24_at_11.34.53_AM.png)
 
 - since interrupt processing is important, special care must be taken in writing interrupt handlers, such as allowing or disabling interrupts
     - if a user program can disable interrupts, there is no way for the OS to get back the CPU and do some remedial action, so the result is a **system hang-up**
@@ -108,33 +92,22 @@ Created: January 14, 2024 9:28 PM
 - if a user process executes in **user mode**, it can perform I/O that needs to execute privileged instructions through system calls since system calls are entry ports into the OS
     - a **system call** is actually a trap that changes from user mode to kernel mode, executes the privileged I/O command, returns from system call and reverts back to user mode to continue execution
 
-![Screenshot 2024-01-15 at 1.57.12 PM.png](lecture%202%20ce1535ee14d641afbbd19ec4b863c9a9/Screenshot_2024-01-15_at_1.57.12_PM.png)
-
 # system call
 
 - a programming interface to the services provided by the OS whose nature is similar to that of a procedure call
     - often written in a high level language like C/C++ and provides the interface to execute these functions by user programs via an application program interface (API)
 
 ### example
-
-![Screenshot 2024-01-24 at 12.04.06 PM.png](lecture%202%20ce1535ee14d641afbbd19ec4b863c9a9/Screenshot_2024-01-24_at_12.04.06_PM.png)
-
 - inside the OS, a number would be associated with each system call
 
 - system-call interface maintains a table indexed according to these numbers— such a table looks like a table of interrupt handlers
 
-![Screenshot 2024-01-24 at 12.04.32 PM.png](lecture%202%20ce1535ee14d641afbbd19ec4b863c9a9/Screenshot_2024-01-24_at_12.04.32_PM.png)
-
 - when the user process executes the system call, the system call interface generates a software trap, then the CPU switches to kernel mode and the system call routine is executed (like interrupt) where the status of the system call is then returned to the caller, together with any return values
 - the caller needs to know nothing about how the system call is implemented
-
-![Screenshot 2024-01-15 at 2.07.24 PM.png](lecture%202%20ce1535ee14d641afbbd19ec4b863c9a9/Screenshot_2024-01-15_at_2.07.24_PM.png)
 
 ### example
 
 - example of printf() I/O library routine, which calls the write() system call in unix or linux
-
-![Screenshot 2024-01-15 at 2.08.08 PM.png](lecture%202%20ce1535ee14d641afbbd19ec4b863c9a9/Screenshot_2024-01-15_at_2.08.08_PM.png)
 
 ## types of system calls
 
@@ -148,31 +121,15 @@ Created: January 14, 2024 9:28 PM
 ## system call parameter passing
 
 - system calls are like procedure calls, so there is a need to pass in parameters (or arguments); common procedure called **parameter passing** mechanisms are pass-by-value, pass-by-reference, and pass-by-result
-- to pass parameters to OS via system call we face some limitations as system calls are of lower level than normal procedures, therefore it is hard to use complicated mechanisms
-- three general methods to pass parameters to OS:
-    
-    
-    | register | put parameters in registers and system call routine reads them from registers
-    
-    simple and fast, but it fails if the number of parameters is more than the number of registers |
-    | --- | --- |
-    | table  | put parameters in a block or a table in memory 
-    
-    pass the address of the block as a parameter in a register 
-    
-    system call routine reads the parameter using the address found at the register |
-    | stack | push parameters onto the stack of the program
-    
-    system call routine pops parameters off the stack for use |
+- to pass parameters to the OS via system calls, we face some limitations as system calls are of a lower level than normal procedures, making it hard to use complicated mechanisms
+  
+- three general methods to pass parameters to the OS:
 
-### table approach example
-
-- effectively a pass-by-reference mechanism
-    
-    ![Screenshot 2024-01-15 at 2.40.41 PM.png](lecture%202%20ce1535ee14d641afbbd19ec4b863c9a9/Screenshot_2024-01-15_at_2.40.41_PM.png)
-    
-
-![Screenshot 2024-01-24 at 12.16.03 PM.png](lecture%202%20ce1535ee14d641afbbd19ec4b863c9a9/Screenshot_2024-01-24_at_12.16.03_PM.png)
+| method | description |
+| --- | --- |
+| register | put parameters in registers and system call routine reads them from registers-- simple and fast, but it fails if the number of parameters is more than the number of registers |
+| table | put parameters in a block or a table in memory-- pass the address of the block as a parameter in a register; system call routine reads the parameter using the address found at the register |
+| stack | push parameters onto the stack of the program-- system call routine pops parameters off the stack for use |
 
 # system programs
 
@@ -189,45 +146,24 @@ others provide detailed information for performance, logging and debugging
 
 these programs format and print the output
 
-some systems implement a registry to store and retrieve configuration information |
-| file modification | text editors to create and modify files
-
-special commands to search contents of files or performance transformations of the text |
+| system Function | description |
+| --- | --- |
+| registry | some systems implement a registry to store and retrieve configuration information |
+| file modification | text editors to create and modify files-- special commands to search contents of files or perform transformations of the text |
 | programming language support | compilers, assemblers, debuggers, and interpreters |
-| program loading and execution | absolute loaders (.com), relocatable loaders (.exe), linkage editors and overlay editors (system programming stuffs) 
-
-debugging systems for programs |
-| communications | provide the mechanism for creating virtual connections among processes, users, and computer systems 
-
-allow users to send messages to one another’s screens, browse web pages, send email messages, remote login, file transfer from one machine to another |
-| utilities | additional useful programs
-
-database system, word processor, spreadsheet, additional compilers |
+| program loading and execution | absolute loaders (.com), relocatable loaders (.exe), linkage editors and overlay editors (system programming stuff). Debugging systems for programs |
+| communications | provide the mechanism for creating virtual connections among processes, users, and computer systems-- allow users to send messages to one another’s screens, browse web pages, send email messages, remote login, and file transfer from one machine to another |
+| utilities | additional useful programs-- database system, word processor, spreadsheet, additional compilers |
 
 # types of os
 
-| batch processing | a job is a sequence of programs represented by an input data sets (often a deck of cards)
-
-one job is executed one at a time and programs within each job are executed sequentially |
+| system Type | description |
 | --- | --- |
-| multiprogramming | programs are executed in interleaved manner by the CPU
-
-CPU is given to another program when the current program is waiting for I/O |
-| time-sharing | processes are executed in interleaved manner by the CPU
-
-same as multiprogramming, but system is interactive, so each process must get CPU without waiting for too long |
-| real-time | a time-sharing system where processes have completion deadlines that must be met
-
-hard real-time systems have firm deadlines—missing a deadline makes a process useless, e.g. examination
-
-soft real-time systems have soft deadlines— missing a deadline reduces value of a process, e.g. assignment
-
-important in high-valued and mission critical applications (e.g. banking transactions, airline reservation, space shuttle control) |
-| distributed | operated upon a collection of computers scattered across the network
-
-advanced from network operating systems
-
-need to coordinate the share of resource and execution of processes to achieve a common goal |
+| batch processing | a job is a sequence of programs represented by an input data set (often a deck of cards)-- one job is executed one at a time and programs within each job are executed sequentially |
+| multiprogramming | programs are executed in an interleaved manner by the CPU-- CPU is given to another program when the current program is waiting for I/O |
+| time-sharing | processes are executed in an interleaved manner by the CPU-- similar to multiprogramming, but the system is interactive, so each process must get CPU time without waiting for too long |
+| real-time | a time-sharing system where processes have completion deadlines that must be met-- **hard real-time systems** have firm deadlines—missing a deadline makes a process useless (e.g., examination)-- **soft real-time systems** have soft deadlines—missing a deadline reduces the value of a process (e.g., assignment) |
+| distributed | operated upon a collection of computers scattered across the network-- advanced from network operating systems; needs to coordinate the sharing of resources and execution of processes to achieve a common goal |
 
 ## simple OS
 
@@ -278,14 +214,9 @@ above the physical hardware
 - **shell** (command line interpreter), **compiler**, **editor**
 - e.g. SSH, cc, gcc, pico, nano
 
-![Screenshot 2024-01-15 at 3.03.11 PM.png](lecture%202%20ce1535ee14d641afbbd19ec4b863c9a9/Screenshot_2024-01-15_at_3.03.11_PM.png)
-
 ## linux structure
 
-- similar 2-layered structure as unix
-    
-    ![Screenshot 2024-01-15 at 3.04.36 PM.png](lecture%202%20ce1535ee14d641afbbd19ec4b863c9a9/Screenshot_2024-01-15_at_3.04.36_PM.png)
-    
+- similar 2-layered structure as unix 
 
 ## mac OS X structure
 
