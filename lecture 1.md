@@ -1,7 +1,5 @@
 # lecture 1
 
-Created: January 4, 2024 8:24 PM
-
 # operating system
 
 - at the foundation of all system software, it performs basic tasks such as controlling and allocating memory, prioritizing system requests, controlling input and output devices, facilitating networks, and managing files
@@ -23,10 +21,7 @@ Created: January 4, 2024 8:24 PM
 - at the hardware level, one or more CPUs and device controllers are connected through common bus to access shared memory
 - concurrent execution of CPU and devices are competing for access to memory (memory cycles)
 
-![Screenshot 2024-01-05 at 12.29.10 PM.png](lecture%201%206e838d0cb0814baabd2abf251226a168/Screenshot_2024-01-05_at_12.29.10_PM.png)
-
 > a manager should allocate and manage company resources effectively, and control working of subordinates so that they deliver performance
-> 
 
 ### resources manager
 
@@ -49,8 +44,6 @@ Created: January 4, 2024 8:24 PM
     - the kernel is a program which is close to the hardware of the system and so, it performs all the tasks of the operating systems which involve a link between both the hardware and the user level applications
 - the kernel thus functions at the lowest level of the operating system, performing tasks such as file management, process management, memory management, etc
 
-![Screenshot 2024-01-17 at 8.10.47 PM.png](lecture%201%206e838d0cb0814baabd2abf251226a168/Screenshot_2024-01-17_at_8.10.47_PM.png)
-
 ### kernel vs shell
 
 | kernel  | shell |
@@ -67,8 +60,6 @@ Created: January 4, 2024 8:24 PM
 | file manager | provide systematic storage for permanent data or programs  |
 | device manager | control the different devices, mostly physical I/O devices |
 - these components interact with one another and are controlled by the users via the user command interface
-
-![Screenshot 2024-01-05 at 12.38.29 PM.png](lecture%201%206e838d0cb0814baabd2abf251226a168/Screenshot_2024-01-05_at_12.38.29_PM.png)
 
 ### resource manager
 
