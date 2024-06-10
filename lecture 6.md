@@ -1,15 +1,11 @@
 # lecture 6
 
-Created: February 27, 2024 6:29 AM
-
 # scheduling
 
 - **cpu scheduling**: controls the decision of which process should get the CPU when the CPU is not in use
     - the CPU scheduler needs to maximize CPU utilization in the presence of multi-programming
 - a careful observation on CPU and I/O burst and **distribution via histogram** of CPU bursts suggests the real need of CPU scheduling
     - **CPU burst**: the consecutive amount of CPU time used by a process— there are usually many relatively short CPU bursts
-
-![Screenshot 2024-02-29 at 10.19.14 AM.png](lecture%206%206f1ec597e96e469992051c36d1c8c86a/Screenshot_2024-02-29_at_10.19.14_AM.png)
 
 - **CPU scheduling decisions** may take place when a process:
     - needs to wait for I/O or special events
@@ -37,7 +33,6 @@ Created: February 27, 2024 6:29 AM
 - used in most OS
 
 > a **scheduling algorithm** is used by scheduler to determine which eligible process will be the next to get the CPU
-> 
 
 ### after making the decision
 
@@ -89,8 +84,6 @@ Created: February 27, 2024 6:29 AM
             - p1 = 0, p2 = 24-AT, p3 = 27-AT
         - average waiting time = $(0 + 23 + 25)/3 = 16$
         
-        ![Screenshot 2024-02-27 at 10.52.24 PM.png](lecture%206%206f1ec597e96e469992051c36d1c8c86a/Screenshot_2024-02-27_at_10.52.24_PM.png)
-        
 2. assume that process P1 arrives later than P2 and P3
     
     
@@ -116,8 +109,6 @@ Created: February 27, 2024 6:29 AM
     - the gantt chart for the schedule is:
         - waiting time for P1 = 0, P2 = 24, P3 = 27
         - average waiting time = (0+24+27)/3 = 17
-        
-        ![Screenshot 2024-02-27 at 10.52.24 PM.png](lecture%206%206f1ec597e96e469992051c36d1c8c86a/Screenshot_2024-02-27_at_10.52.24_PM.png)
         
     - consider the example again, where time is in ms
         
@@ -151,9 +142,6 @@ Created: February 27, 2024 6:29 AM
     | P4 | 3 | 0 |
     - the gantt chart for the schedule is:
         
-        ![Screenshot 2024-02-27 at 11.01.22 PM.png](lecture%206%206f1ec597e96e469992051c36d1c8c86a/Screenshot_2024-02-27_at_11.01.22_PM.png)
-        
-    
     | turnaround time | P1 = 9, P2 = 24, P3 = 16, P4 = 3 |
     | --- | --- |
     | average turnaround time | $(9+24+16+3)/4 = 13$ |
@@ -173,9 +161,6 @@ Created: February 27, 2024 6:29 AM
     | P4 | 5 | 3 |
     - the gantt chart for the schedule is:
         
-        ![Screenshot 2024-02-27 at 11.03.57 PM.png](lecture%206%206f1ec597e96e469992051c36d1c8c86a/Screenshot_2024-02-27_at_11.03.57_PM.png)
-        
-    
     | turnaround time | P1 = 8, P2 = 11, P3 = 24, P4 = 14 |
     | --- | --- |
     | average turnaround time | $(8+11+24+14)/4 = 14.25$ |
@@ -186,7 +171,7 @@ Created: February 27, 2024 6:29 AM
         - waiting: P1 = 0 (8-8), P2 = 7 (11-4), P4 = 9 (14-5), P3 = 15 (24 - 9)
         
         > even if this is SJF, P1 is the only process available at 0 so the CPU has no choice — then after P1 is executed, all other processes are placed into the queue, so then they are executed based on burst times
-        > 
+   
         
 
 # SRT scheduling
@@ -208,8 +193,6 @@ Created: February 27, 2024 6:29 AM
     | P3 | 9 | 2 |
     | P4 | 5 | 3 |
     - the gantt chart for the schedule is:
-        
-        ![Screenshot 2024-02-27 at 11.08.21 PM.png](lecture%206%206f1ec597e96e469992051c36d1c8c86a/Screenshot_2024-02-27_at_11.08.21_PM.png)
         
         - explanation of gantt chart:
             - P1 gets executed first since it is first to arrive — it executes for 1 second
@@ -240,9 +223,6 @@ Created: February 27, 2024 6:29 AM
     | P3 | 9 | 2 |
     | P4 | 5 | 3 |
     - the gantt charts are:
-        
-        ![Screenshot 2024-02-27 at 11.13.19 PM.png](lecture%206%206f1ec597e96e469992051c36d1c8c86a/Screenshot_2024-02-27_at_11.13.19_PM.png)
-        
     
     | process | burst | arrival | SJF-W | SJF-TR | SRT-W | SRT-TR |
     | --- | --- | --- | --- | --- | --- | --- |
@@ -274,8 +254,6 @@ Created: February 27, 2024 6:29 AM
     | P5 | 5 | 2 | 0 |
     - the gantt chart for the schedule is:
         
-        ![Screenshot 2024-02-27 at 11.19.05 PM.png](lecture%206%206f1ec597e96e469992051c36d1c8c86a/Screenshot_2024-02-27_at_11.19.05_PM.png)
-        
         - explanation of gantt chart:
             - P2 runs first since it has the highest priority and it runs for 1 second
             - then P5 runs for 5 seconds (completion time 6)
@@ -292,8 +270,6 @@ Created: February 27, 2024 6:29 AM
     - waiting time: P1 = 6 (16-10), P2 = 0 (1-1), P3 = 16 (18-2), P4 = 18 (19-1), P5 = 1 (6-5)
         - non-preemptive
             
-            ![Screenshot 2024-02-27 at 11.24.44 PM.png](lecture%206%206f1ec597e96e469992051c36d1c8c86a/Screenshot_2024-02-27_at_11.24.44_PM.png)
-            
 2. assume the following processes — PREEMPTIVE
     
     
@@ -305,8 +281,6 @@ Created: February 27, 2024 6:29 AM
     | P4 | 1 | 5 (lowest) | 3 |
     | P5 | 5 | 2 | 4 |
     - the gantt chart for the schedule is:
-        
-        ![Screenshot 2024-02-27 at 11.26.42 PM.png](lecture%206%206f1ec597e96e469992051c36d1c8c86a/Screenshot_2024-02-27_at_11.26.42_PM.png)
         
         - P1 runs first since it arrives first and it runs for 1 second
         - then P2 runs since it has a higher priority and it runs for 1 second and finishes (completion time 2)
@@ -324,9 +298,6 @@ Created: February 27, 2024 6:29 AM
     | average waiting time | $(9 + 0 + 15 + 2)/4 = 6.5$ |
     - preemptive
         
-        ![Screenshot 2024-02-27 at 11.28.10 PM.png](lecture%206%206f1ec597e96e469992051c36d1c8c86a/Screenshot_2024-02-27_at_11.28.10_PM.png)
-        
-
 - the problem with priority scheduling is that a low priority process may get no chance of execution, if there are higher priority processes that keep coming
 - this problem is called **starvation**
     - the low priority process starves for the CPU that is repeatedly consumed by high priority processes
@@ -354,9 +325,6 @@ Created: February 27, 2024 6:29 AM
     | P2 | 9 | 0 |
     | P3 | 3 | 0 |
     - the gantt chart for the schedule is:
-        
-        ![Screenshot 2024-02-27 at 11.34.20 PM.png](lecture%206%206f1ec597e96e469992051c36d1c8c86a/Screenshot_2024-02-27_at_11.34.20_PM.png)
-        
     
     | turnaround time | P1 = 30, P2 = 24, P3 = 11 |
     | --- | --- |
@@ -372,9 +340,6 @@ Created: February 27, 2024 6:29 AM
     | P2 | 9 | 0 |
     | P3 | 3 | 0 |
     - the gantt chart for the schedule is:
-        
-        ![Screenshot 2024-02-27 at 11.37.20 PM.png](lecture%206%206f1ec597e96e469992051c36d1c8c86a/Screenshot_2024-02-27_at_11.37.20_PM.png)
-        
     
     | turnaround time | P1 = 30, P2 = 22, P3 = 11 |
     | --- | --- |
@@ -390,8 +355,6 @@ Created: February 27, 2024 6:29 AM
     | P2 | 9 | 3 |
     | P3 | 3 | 6 |
     - the gantt chart for the schedule is:
-        
-        ![Screenshot 2024-02-27 at 11.38.38 PM.png](lecture%206%206f1ec597e96e469992051c36d1c8c86a/Screenshot_2024-02-27_at_11.38.38_PM.png)
         
     
     | turnaround time | P1 = 30, P2 = 21, P3 = 9 |
@@ -413,8 +376,6 @@ Created: February 27, 2024 6:29 AM
     | P4 | 24 | 0 |
     - the gantt charts for the schedules are:
         
-        ![Screenshot 2024-02-27 at 11.40.54 PM.png](lecture%206%206f1ec597e96e469992051c36d1c8c86a/Screenshot_2024-02-27_at_11.40.54_PM.png)
-        
     
     | process | burst | arrival | 40-W | 40-TR | 20-W | 20-TR |
     | --- | --- | --- | --- | --- | --- | --- |
@@ -433,9 +394,6 @@ Created: February 27, 2024 6:29 AM
     | P3 | 68 | 6 |
     | P4 | 24 | 9 |
     - the gantt charts for the schedules are:
-        
-        ![Screenshot 2024-02-27 at 11.44.34 PM.png](lecture%206%206f1ec597e96e469992051c36d1c8c86a/Screenshot_2024-02-27_at_11.44.34_PM.png)
-        
     
     | process | burst | arrival | 40-W | 40-TR | 20-W | 20-TR |
     | --- | --- | --- | --- | --- | --- | --- |
@@ -489,5 +447,3 @@ Created: February 27, 2024 6:29 AM
     - Q0 uses RR with time quantum 8 and max quantum 8
     - Q1 uses RR with time quantum 16 and max quantum 16
     - Q2 uses FCFS
-    
-    ![Screenshot 2024-02-27 at 11.54.15 PM.png](lecture%206%206f1ec597e96e469992051c36d1c8c86a/Screenshot_2024-02-27_at_11.54.15_PM.png)
