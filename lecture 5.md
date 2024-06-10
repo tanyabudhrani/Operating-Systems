@@ -1,7 +1,5 @@
 # lecture 5
 
-Created: February 15, 2024 12:54 AM
-
 # interprocess communication
 
 - (IPC) mechanisms allow processes to communicate and to synchronize
@@ -69,18 +67,12 @@ Created: February 15, 2024 12:54 AM
 - sender may have sent several messages and receiver has not read them
 - a queue of messages is attached to the link to store (buffer) those outstanding messages
 - three different implementations for the message queue:
-    
-    
-    | zero capacity | no message could be buffered
-    
-    sender must wait for receiver and vice versa |
-    | --- | --- |
-    | bounded capacity | queue can only store up to n messages
-    
-    sender must wait if the queue is full |
-    | unbounded capacity | queue can hold infinite number of messages
-    
-    sender never needs to wait |
+
+| capacity Type | description |
+| --- | --- |
+| zero capacity | no message could be buffered so sender must wait for receiver and vice versa |
+| bounded capacity | queue can only store up to \( n \) messages so sender must wait if the queue is full |
+| unbounded Capacity | queue can hold an infinite number of messages so sender never needs to wait |
 
 ## providing IPC
 
@@ -90,8 +82,6 @@ Created: February 15, 2024 12:54 AM
 - appropriate system calls are provided for a programmer to develop a program using IPC mechanism — creating, writing, reading, deletion
 
 # unix/linux IPC
-
-![Screenshot 2024-02-15 at 5.11.45 PM.png](lecture%205%20af3a690ed6644f4da7082c3cde36e96a/Screenshot_2024-02-15_at_5.11.45_PM.png)
 
 - what would happen in MS-DOS
     - case 1: treat a.out as [a.com](http://a.com)
@@ -135,10 +125,6 @@ Created: February 15, 2024 12:54 AM
     - you can then type messages, which will appear on the screen of user
     - terminate your sequence of messages with `<Ctrl>-D` or break with `<Ctrl>-C`
 
-### example
-
-![Screenshot 2024-02-15 at 5.17.51 PM.png](lecture%205%20af3a690ed6644f4da7082c3cde36e96a/Screenshot_2024-02-15_at_5.17.51_PM.png)
-
 ## IPC for user (TCP)
 
 - at user level, a more advanced utility program called `talk` exists in unix and many linux
@@ -159,29 +145,19 @@ Created: February 15, 2024 12:54 AM
     - consistent with the meaning of `stdin` and `stdout` for file I/O, **fd[0] is for reading** and **fd[1] is for writing**
     - a process will call `read()` to read data from the pipe via fd[0] and call `write()` to write data to the pipe via fd[1]
 
-![Screenshot 2024-02-15 at 5.20.32 PM.png](lecture%205%20af3a690ed6644f4da7082c3cde36e96a/Screenshot_2024-02-15_at_5.20.32_PM.png)
 
 # unnamed pipe
-
-![Screenshot 2024-02-15 at 5.20.58 PM.png](lecture%205%20af3a690ed6644f4da7082c3cde36e96a/Screenshot_2024-02-15_at_5.20.58_PM.png)
-
 - a pipe should connect two processes, not to connect a process with itself
 - child processes need to be created via system call `fork()` like before, but after the pipe is created
     - recall that fork() will make **the child an exact copy of the parent**
-
-![Screenshot 2024-02-15 at 5.21.31 PM.png](lecture%205%20af3a690ed6644f4da7082c3cde36e96a/Screenshot_2024-02-15_at_5.21.31_PM.png)
 
 - now both child and parent can write to fd[1] and read from fd[0]
     - there is only ONE pipe, so **both will write to the SAME pipe and read from the SAME pipe**
 - to avoid confusion, the unused ends must be closed
     - **closing the read end of parent** and **write end of child** via system call `close()`, parent can write to child and child can read from parent, and not the other way round
 
-![Screenshot 2024-02-15 at 5.25.23 PM.png](lecture%205%20af3a690ed6644f4da7082c3cde36e96a/Screenshot_2024-02-15_at_5.25.23_PM.png)
+### example
 
-- example
-    
-    ![Screenshot 2024-02-15 at 5.25.44 PM.png](lecture%205%20af3a690ed6644f4da7082c3cde36e96a/Screenshot_2024-02-15_at_5.25.44_PM.png)
-    
 - child often needs to send data to parent — this can also be achieved by creating another pipe by closing the unused ends for this usage
     - **closing the read end of child** and **write end of parent** via system call close(), child can write to parent and parent can read from child, and not the other way round
 - how can a parent talk to child and get data back from child?
@@ -209,73 +185,16 @@ Created: February 15, 2024 12:54 AM
 
 # communication topology
 
-| star | parent or coordinator talks to each individual child process
-
-simple to do, but bottleneck at parent
-
-very few pipes
-
-at most 2 rounds of messages | 2(n-1) for both directions
-
-bottleneck/single-point-of-failure at parent with 2(n-1) pipes |
-| --- | --- | --- |
-| ring | processes connected in a ring
-
-very few pipes
-
-quite many rounds of messages | 2n
-
-no particular bottleneck |
-| linear | processes connected in a single line or chain
-
-very few pipes
-
-many rounds of messages | 2(n-1)
-
-node failure will separate the communication |
-| fully connected | parent or child processes directly talk to one another
-
-need many pipes
-
-fast communication | n(n-1)
-
-no bottleneck: everybody with 2(n-1) |
-| tree  | parent at each level of tree talks to its child process
-
-very few pipes
-
-more rounds of messages | 2(n-1)
-
-bottleneck spread around |
-| mesh | links follow some structure, often grid-like
-
-fewer pipes than fully connected
-
-could be harder to program and maintain
-
-need routing for non-neighboring processes
-
-flexible | between 2(n-1) and n(n-1)
-
-each node is connected to around 4 neighbors |
-| hypercube  | links follow a cube-structure
-
-fewer pipes than fully connected
-
-well-established routing mechanism for non-neighboring processes
-
-flexible | between 2(n-1) and n(n-1)
-
-each node is connected to log2 n neighbors |
-| bus  | not considered with pipes (like ethernet)  |  |
-
-## linear communication
-
-![Screenshot 2024-02-15 at 5.35.26 PM.png](lecture%205%20af3a690ed6644f4da7082c3cde36e96a/Screenshot_2024-02-15_at_5.35.26_PM.png)
-
-## star communication
-
-![Screenshot 2024-02-15 at 5.36.39 PM.png](lecture%205%20af3a690ed6644f4da7082c3cde36e96a/Screenshot_2024-02-15_at_5.36.39_PM.png)
+| topology | description | number of pipes | characteristics |
+| --- | --- | --- | --- |
+| star | parent or coordinator talks to each individual child process. Simple to do, but bottleneck at parent. Very few pipes. At most 2 rounds of messages. Bottleneck/single-point-of-failure at parent with 2(n-1) pipes | 2(n-1) for both directions | Bottleneck at parent |
+| ring | Processes connected in a ring. Very few pipes. Quite many rounds of messages. No particular bottleneck | 2n | No bottleneck |
+| linear | Processes connected in a single line or chain. Very few pipes. Many rounds of messages. Node failure will separate the communication. | 2(n-1) | Node failure separates communication |
+| fully connected | Parent or child processes directly talk to one another. Need many pipes. Fast communication. No bottleneck: everybody with 2(n-1) | n(n-1) | No bottleneck |
+| tree | Parent at each level of tree talks to its child process. Very few pipes. More rounds of messages. Bottleneck spread around. | 2(n-1) | Bottleneck spread around |
+| mesh | Links follow some structure, often grid-like. Fewer pipes than fully connected. Could be harder to program and maintain. Need routing for non-neighboring processes. Flexible | Between 2(n-1) and n(n-1) | Each node is connected to around 4 neighbors |
+| hypercube | Links follow a cube-structure. Fewer pipes than fully connected. Well-established routing mechanism for non-neighboring processes. Flexible. | Between 2(n-1) and n(n-1) | Each node is connected to log2 n neighbors |
+| bus | Not considered with pipes (like ethernet) | | |
 
 # named file
 
@@ -285,14 +204,9 @@ each node is connected to log2 n neighbors |
 - the pipe remains even after both processes have completed
     - it is a good programming practice to create the named pipe and then delete the named pipe inside the program at the end, via `unlink()` system call
 
-![Screenshot 2024-02-15 at 5.37.46 PM.png](lecture%205%20af3a690ed6644f4da7082c3cde36e96a/Screenshot_2024-02-15_at_5.37.46_PM.png)
-
 ```
 char pipename[] = "/tmp/mypipe";
 ```
-
-![Screenshot 2024-02-15 at 5.38.20 PM.png](lecture%205%20af3a690ed6644f4da7082c3cde36e96a/Screenshot_2024-02-15_at_5.38.20_PM.png)
-
 - sometimes it is clumsy to develop two separate programs for communication
     - note that there is no distinction between parent and child
 - it is also tedious for the user to physically run the two programs (and to make sure to run the two programs in proper order, i.e. run the program creating the named pipe first)
@@ -300,11 +214,6 @@ char pipename[] = "/tmp/mypipe";
 - we could make use of the fork() mechanism for the parent to create the child and run the two programs in one single shot or we could also combine the two programs into one
 
 > advantage: pipe is always created before use
-> 
-
-![Screenshot 2024-02-15 at 6.15.30 PM.png](lecture%205%20af3a690ed6644f4da7082c3cde36e96a/Screenshot_2024-02-15_at_6.15.30_PM.png)
-
-![Screenshot 2024-02-15 at 6.15.42 PM.png](lecture%205%20af3a690ed6644f4da7082c3cde36e96a/Screenshot_2024-02-15_at_6.15.42_PM.png)
 
 - among the three different approaches in using named pipes, which one do you prefer?
     - option 1: two separate programs run separately
@@ -319,7 +228,6 @@ char pipename[] = "/tmp/mypipe";
 - sockets are more common and more flexible — advantage of named pipes is often related to the support of heterogeneous programs, perhaps from different users
 
 > unnamed pipes are used more commonly than named pipes
-> 
 
 ## pipes in IPC
 
