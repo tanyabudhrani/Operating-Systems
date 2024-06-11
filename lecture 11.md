@@ -1,7 +1,5 @@
 # lecture 11
 
-Created: April 1, 2024 10:25 PM
-
 # file concept
 
 - a **file** is a named collection of related information that is stored on a secondary storage, such as a disk
@@ -12,8 +10,6 @@ Created: April 1, 2024 10:25 PM
 
 - information about files are often maintained in the directory structure
 - a **file system** is a collection of files in an organized way, with proper storage and directory structure
-
-![Screenshot 2024-04-02 at 1.26.30 PM.png](lecture%2011%2073b14c61293c40eea3ed1fb7f87dbfaa/Screenshot_2024-04-02_at_1.26.30_PM.png)
 
 - a disk may be divided into many parts
     - **partition**: a part may hold an individual file system— sometimes, several disks are combined
@@ -94,18 +90,11 @@ Created: April 1, 2024 10:25 PM
 
 ## access methods
 
-| sequential access | data are accessed in order, from beginning to the end
-
-most systems support sequential access |
+| access Method | description |
 | --- | --- |
-| direct access | also called relative access
-
-file is composed of fixed-length records
-
-data can be accessed directly, based on record number |
-| indexed access | a separate index file contains pointers to the data blocks of a data file (direct file or relative file)
-
-direct access to required data blocks can be achieved via searching the index |
+| sequential access | data are accessed in order, from beginning to the end-- most systems support sequential access |
+| direct access | also called relative access-- file is composed of fixed-length records; data can be accessed directly, based on record number |
+| indexed access | a separate index file contains pointers to the data blocks of a data file (direct file or relative file)-- direct access to required data blocks can be achieved via searching the index |
 
 ### sequential access operations
 
@@ -117,8 +106,6 @@ direct access to required data blocks can be achieved via searching the index |
 - **skip forward/backward**: move the file pointer forward without reading or move it backward
     - backward skipping is only supported in some systems
 
-![Screenshot 2024-04-02 at 1.41.48 PM.png](lecture%2011%2073b14c61293c40eea3ed1fb7f87dbfaa/Screenshot_2024-04-02_at_1.41.48_PM.png)
-
 ### direct access operations
 
 - **read n**: return the n th data item or block
@@ -129,23 +116,17 @@ direct access to required data blocks can be achieved via searching the index |
     - read n and write n could be implemented using position n and then read next and write next
 - sequential access can also be provided easily by a system that only supports direct access
 
-![Screenshot 2024-04-02 at 1.43.11 PM.png](lecture%2011%2073b14c61293c40eea3ed1fb7f87dbfaa/Screenshot_2024-04-02_at_1.43.11_PM.png)
-
 ### indexed access
 
 - use of **index** allows direct access to data
 - data is stored in a direct or relative file
 - multiple indexes could be maintained to allow direct access to different parts of data based on the index
 
-![Screenshot 2024-04-02 at 1.43.53 PM.png](lecture%2011%2073b14c61293c40eea3ed1fb7f87dbfaa/Screenshot_2024-04-02_at_1.43.53_PM.png)
-
 # directory structure
 
 - a **directory** is a collection of nodes or entries containing information about all files
 - both directory structure and files reside on the disk
 - in unix/linux, the directory structure itself is implemented as a file
-
-![Screenshot 2024-04-02 at 1.46.10 PM.png](lecture%2011%2073b14c61293c40eea3ed1fb7f87dbfaa/Screenshot_2024-04-02_at_1.46.10_PM.png)
 
 - operations on a directory:
     
@@ -176,13 +157,9 @@ direct access to required data blocks can be achieved via searching the index |
     - each user may create a file with same name as other users which allows for faster searching for a file and easier access control
 - more difficult for a user to access files of another user when they cooperate: access rights need to be controlled and users need to name another user’s file
 
-![Screenshot 2024-04-02 at 1.51.48 PM.png](lecture%2011%2073b14c61293c40eea3ed1fb7f87dbfaa/Screenshot_2024-04-02_at_1.51.48_PM.png)
-
 ## tree-structured directories
 
 - extend two-level directory into multiple levels like a tree
-
-![Screenshot 2024-04-02 at 1.52.33 PM.png](lecture%2011%2073b14c61293c40eea3ed1fb7f87dbfaa/Screenshot_2024-04-02_at_1.52.33_PM.png)
 
 - more efficient searching on even fewer files
 - grouping capability of files belonging to a particular group, e.g. files for a certain subject or with a certain nature
@@ -196,8 +173,6 @@ direct access to required data blocks can be achieved via searching the index |
 ## acyclic-graph directories
 
 - allow for shared subdirectories and files in tree-structured directories so as to form a graph
-
-![Screenshot 2024-04-02 at 1.53.37 PM.png](lecture%2011%2073b14c61293c40eea3ed1fb7f87dbfaa/Screenshot_2024-04-02_at_1.53.37_PM.png)
 
 - allow for files or directories to be shared
     - file may be referenced via two different names
@@ -217,8 +192,6 @@ direct access to required data blocks can be achieved via searching the index |
 ## general graph directories
 
 - allow for cycles in directories to exist to form a **general graph**
-
-![Screenshot 2024-04-02 at 1.56.19 PM.png](lecture%2011%2073b14c61293c40eea3ed1fb7f87dbfaa/Screenshot_2024-04-02_at_1.56.19_PM.png)
 
 - the **general graph with a cycle** could cause some problems (e.g. how to count the total number of files?)
 - a poorly designed algorithms will fall into an infinite loop— if we need a recursive backup of all the files down the directories, how can that be done?
@@ -243,16 +216,12 @@ direct access to required data blocks can be achieved via searching the index |
     - automatically using distributed file systems, e.g. transparent use of J: drive on both PC and unix/linux
     - semi-automatically via the web
 
-| client-server model | allows clients to mount remote file systems from servers | a server can serve multiple clients
-
-standard operating system file calls are translated into remote calls to be executed at the remote machine |
+| model | description | characteristics |
 | --- | --- | --- |
-| network file system | developed by sun (now oracle) 
-is a common distributed file-sharing method | it is the standard unix client-server file sharing approach |
-| storage-area network | provides large storage capacities to a large user population | it uses a high-speed network dedicated to the task of transporting data for storage and retrieval |
-| cloud storage | the newest technology to host data in a collection of nodes over the cloud | service is usually provided by third party, usually data center
-
-common storage: icloud, dropbox, google drive |
+| client-server model | allows clients to mount remote file systems from servers | a server can serve multiple clients-- standard operating system file calls are translated into remote calls to be executed at the remote machine |
+| network file system (NFS) | developed by sun (now Oracle)-- it is a common distributed file-sharing method | it is the standard UNIX client-server file sharing approach |
+| storage-area network (SAN) | provides large storage capacities to a large user population | it uses a high-speed network dedicated to the task of transporting data for storage and retrieval |
+| cloud storage | the newest technology to host data in a collection of nodes over the cloud | service is usually provided by a third party, typically a data center-- common storage: icloud, dropbox, google drive |
 
 ## file storage allocation
 
@@ -304,8 +273,6 @@ common storage: icloud, dropbox, google drive |
 | raid 1 means mirror  | 100% overhead |
 | raid 5 is the most commonly adopted | 1/n overhead for n data disk |
 
-![Screenshot 2024-04-02 at 2.33.36 PM.png](lecture%2011%2073b14c61293c40eea3ed1fb7f87dbfaa/Screenshot_2024-04-02_at_2.33.36_PM.png)
-
 ### network-attached storage
 
 - **network-attached storage** (NAS) is a special purpose storage system accessible over the network
@@ -324,8 +291,6 @@ common storage: icloud, dropbox, google drive |
     - operate on special storage protocols, not network protocols
     - connect together computers and storage devices to allow sharing of the pool of storage devices
     - adopted by large institutions, e.g. J: drive attached to SAN
-
-![Screenshot 2024-04-02 at 2.40.52 PM.png](lecture%2011%2073b14c61293c40eea3ed1fb7f87dbfaa/Screenshot_2024-04-02_at_2.40.52_PM.png)
 
 ## tertiary storage
 
@@ -382,8 +347,6 @@ usage
 - **access-right = <object-name, rights-set>**
     - the rights-set is a subset of all valid operations that can be performed on the object
 
-![Screenshot 2024-04-02 at 2.48.03 PM.png](lecture%2011%2073b14c61293c40eea3ed1fb7f87dbfaa/Screenshot_2024-04-02_at_2.48.03_PM.png)
-
 ## access matrix
 
 - access control is achieved via access matrix
@@ -401,8 +364,6 @@ usage
 
 - **policy**: user dictates policy on who can access what object and in what mode
 
-![Screenshot 2024-04-02 at 2.54.03 PM.png](lecture%2011%2073b14c61293c40eea3ed1fb7f87dbfaa/Screenshot_2024-04-02_at_2.54.03_PM.png)
-
 # security
 
 - authentication of user, validation of messages, malicious or accidental introduction of flaws, etc
@@ -410,22 +371,11 @@ usage
 
 ## implementation
 
-| global table | store ordered triples < domain, object, rights-set > in table
-
-check for < Di, Oj, Rk > to execute operation M on object Oj within domain Di |
+| method | description |
 | --- | --- |
-| access control lists for objects | each column implemented as an access list for one object
-
-resulting per-object list consists of ordered pairs <domain, rights-set>
-
-defining all domains with non-empty set of access rights for the object |
-| capability lists for domains | each row implemented as a capability list for one domain
-
-object represented by its name or address, called a capabilit
-
-to execute operation M on object Oj, process requests operation and specifies a possessed capability as parameter
-
-a capability is like a “secure pointer” implemented by OS and is accessed indirectly |
+| global table | store ordered triples \<domain, object, rights-set\> in a table-- check for \<Di, Oj, Rk\> to execute operation M on object Oj within domain Di |
+| access control lists for objects | each column implemented as an access list for one object, resulting per-object list consists of ordered pairs \<domain, rights-set\>-- defining all domains with a non-empty set of access rights for the object |
+| capability lists for domains | each row implemented as a capability list for one domain-- object represented by its name or address, called a capability; to execute operation M on object Oj, process requests operation and specifies a possessed capability as a parameter, a capability is like a “secure pointer” implemented by the OS and accessed indirectly |
 
 ## protection on file systems
 
