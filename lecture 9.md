@@ -1,7 +1,5 @@
 # lecture 9
 
-Created: March 19, 2024 1:58 AM
-
 # deadlock
 
 - recall that OS is a resource manager
@@ -70,12 +68,6 @@ Created: March 19, 2024 1:58 AM
     - **assignment edge** is a directed edge from R to P— Rj → Pi means that Rj
     is allocated/assigned to Pi, which holds the resource
 - if a request can be fulfilled by the resource manager, **a request edge will become an assignment edge and the direction of the edge is reversed**
-
-## graph notation
-
-![Screenshot 2024-03-19 at 5.22.09 PM.png](lecture%209%20096ccdf8fc6144a4bc795f1cfc49d94c/Screenshot_2024-03-19_at_5.22.09_PM.png)
-
-![Screenshot 2024-03-19 at 5.22.26 PM.png](lecture%209%20096ccdf8fc6144a4bc795f1cfc49d94c/Screenshot_2024-03-19_at_5.22.26_PM.png)
 
 ### quick rules of thumb
 
@@ -166,8 +158,6 @@ Created: March 19, 2024 1:58 AM
 
 - **resource allocation state** is defined by the number of available and allocated resources and the maximum demands of the processes
 
-![Screenshot 2024-03-19 at 5.40.50 PM.png](lecture%209%20096ccdf8fc6144a4bc795f1cfc49d94c/Screenshot_2024-03-19_at_5.40.50_PM.png)
-
 - if a system is in a safe state, there is no deadlock
 
 - if a system is in an unsafe state, there is a possibility of deadlock
@@ -186,10 +176,6 @@ Created: March 19, 2024 1:58 AM
 - when Pj finishes, Pj+1 can obtain its needed resources, and so on
 
 ### safe sequence example
-
-![Screenshot 2024-03-19 at 5.45.28 PM.png](lecture%209%20096ccdf8fc6144a4bc795f1cfc49d94c/Screenshot_2024-03-19_at_5.45.28_PM.png)
-
-![Screenshot 2024-03-19 at 5.45.42 PM.png](lecture%209%20096ccdf8fc6144a4bc795f1cfc49d94c/Screenshot_2024-03-19_at_5.45.42_PM.png)
 
 - for each Pj, the resources that Pj can still request can be satisfied by currently available resources plus resources currently held by all preceding processes Pk with k < j
 
@@ -244,26 +230,11 @@ $max_i
 - 5 processes, P0 to P4, 3 resource types A, B, C, with 10, 5 and 7 instances
 - after some allocation exercises, there are only 3, 3 and 2 instances of A, B, C available— the current allocation state is shown
     
-    ![Screenshot 2024-03-19 at 5.58.12 PM.png](lecture%209%20096ccdf8fc6144a4bc795f1cfc49d94c/Screenshot_2024-03-19_at_5.58.12_PM.png)
-    
 - we can find a safe sequence <P1, P3, P0, P2, P4> and system is in a safe state
-
-![Screenshot 2024-03-19 at 6.00.36 PM.png](lecture%209%20096ccdf8fc6144a4bc795f1cfc49d94c/Screenshot_2024-03-19_at_6.00.36_PM.png)
-
-![Screenshot 2024-03-19 at 6.05.11 PM.png](lecture%209%20096ccdf8fc6144a4bc795f1cfc49d94c/Screenshot_2024-03-19_at_6.05.11_PM.png)
-
-- the full list
-    
-    ![Screenshot 2024-03-19 at 6.05.31 PM.png](lecture%209%20096ccdf8fc6144a4bc795f1cfc49d94c/Screenshot_2024-03-19_at_6.05.31_PM.png)
-    
 
 ### example
 
 - given the following system state, compute the need information— after some allocation exercises, there is 1 instance each for A, B, and C available (e.g. 1 1 1)
-
-![Screenshot 2024-03-19 at 6.06.44 PM.png](lecture%209%20096ccdf8fc6144a4bc795f1cfc49d94c/Screenshot_2024-03-19_at_6.06.44_PM.png)
-
-![Screenshot 2024-03-19 at 6.06.47 PM.png](lecture%209%20096ccdf8fc6144a4bc795f1cfc49d94c/Screenshot_2024-03-19_at_6.06.47_PM.png)
 
 # deadlock detection
 
@@ -290,8 +261,6 @@ useful when each resource has only one instance
         - $P_i$ is waiting for a resource Rk allocated to $P_j$, so $P_i$ is waiting for $P_j$ to return the resource
 - there is a deadlock if and only if there is a cycle in the wait-for graph
 - periodically, check for cycles in the wait-for graph to detect deadlock
-
-![Screenshot 2024-03-19 at 6.47.45 PM.png](lecture%209%20096ccdf8fc6144a4bc795f1cfc49d94c/Screenshot_2024-03-19_at_6.47.45_PM.png)
 
 ## detection algorithm
 
@@ -324,12 +293,4 @@ while not done do
 
 ### example
 
-![Screenshot 2024-03-19 at 10.53.20 PM.png](lecture%209%20096ccdf8fc6144a4bc795f1cfc49d94c/Screenshot_2024-03-19_at_10.53.20_PM.png)
-
 - 5 processes, P0 to P4, 3 resource types A, B, C, with 4, 2 and 4 instances— after some allocation exercises, there is just one C available; the current allocation state is as shown (available = (0 0 1))
-
-![Screenshot 2024-03-19 at 10.54.03 PM.png](lecture%209%20096ccdf8fc6144a4bc795f1cfc49d94c/Screenshot_2024-03-19_at_10.54.03_PM.png)
-
-- all possible completion sequences
-    
-    ![Screenshot 2024-03-19 at 10.54.32 PM.png](lecture%209%20096ccdf8fc6144a4bc795f1cfc49d94c/Screenshot_2024-03-19_at_10.54.32_PM.png)
