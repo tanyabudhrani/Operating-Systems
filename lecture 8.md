@@ -1,7 +1,5 @@
 # lecture 8
 
-Created: March 12, 2024 2:32 AM
-
 # memory management
 
 - a program should be in main memory to be executed
@@ -24,24 +22,14 @@ Created: March 12, 2024 2:32 AM
     - since I/O is relatively slow, it will take quite some time to swap a full process out and then swap it in later
 - ability to swap part of a process forms the basis for overlay and virtual memory management
 
-![Screenshot 2024-03-12 at 5.37.11 PM.png](lecture%208%20e6a0886e5a444f66b775b140443b4178/Screenshot_2024-03-12_at_5.37.11_PM.png)
-
 ## overlay
-
 - swapping is done to different phases of program execution
-
-![Screenshot 2024-03-12 at 5.38.05 PM.png](lecture%208%20e6a0886e5a444f66b775b140443b4178/Screenshot_2024-03-12_at_5.38.05_PM.png)
 
 ## memory need
 
 - how much memory is needed?
 
-![Screenshot 2024-03-12 at 5.38.33 PM.png](lecture%208%20e6a0886e5a444f66b775b140443b4178/Screenshot_2024-03-12_at_5.38.33_PM.png)
-
 - actual memory needed:
-    
-    ![Screenshot 2024-03-12 at 5.38.59 PM.png](lecture%208%20e6a0886e5a444f66b775b140443b4178/Screenshot_2024-03-12_at_5.38.59_PM.png)
-    
     - size of process = 8264K (size for VSZ is in KB)
     • RSS refers to size of partial process in memory
     • 348K is in main memory when this program is executed— this is much smaller than the process size of 8264K
@@ -49,9 +37,6 @@ Created: March 12, 2024 2:32 AM
     • VSZ = 4168 and RSS = 344.
     • only the needed part (344K) is in main memory
 - it is not uncommon for large data need
-    
-    ![Screenshot 2024-03-12 at 5.40.26 PM.png](lecture%208%20e6a0886e5a444f66b775b140443b4178/Screenshot_2024-03-12_at_5.40.26_PM.png)
-    
 
 # virtual memory
 
@@ -69,8 +54,6 @@ Created: March 12, 2024 2:32 AM
     - **paging**: break into pages
     - **segmentation**: break into segments
 
-![Screenshot 2024-03-12 at 5.42.33 PM.png](lecture%208%20e6a0886e5a444f66b775b140443b4178/Screenshot_2024-03-12_at_5.42.33_PM.png)
-
 - virtual memory is mapped to physical memory
 
 - some parts are stored in real memory
@@ -78,8 +61,6 @@ Created: March 12, 2024 2:32 AM
 - some parts are stored on disk only
 - move in **needed part** to memory (swap in) and move out **unneeded part** from memory (swap out)
 - **memory map** in virtual memory means the page table in paging
-
-![Screenshot 2024-03-12 at 5.43.36 PM.png](lecture%208%20e6a0886e5a444f66b775b140443b4178/Screenshot_2024-03-12_at_5.43.36_PM.png)
 
 - physical memory is smaller than virtual memory
     - we could not store all needed pages in memory
@@ -133,9 +114,6 @@ Created: March 12, 2024 2:32 AM
 - initially, valid-invalid bit is set to invalid for all entries
 
 ### example
-
-![Screenshot 2024-03-12 at 5.51.05 PM.png](lecture%208%20e6a0886e5a444f66b775b140443b4178/Screenshot_2024-03-12_at_5.51.05_PM.png)
-
 - a process is divided into 8 pages
     - all 8 pages can be found on disk but only 3 pages (A,C,F) are currently in main memory
 - valid-invalid bits indicate which are in memory
@@ -158,8 +136,6 @@ Created: March 12, 2024 2:32 AM
     | update the page table to point to the loaded frame |
     | set the valid-invalid bit to be valid |
     | restart the instruction that caused the page fault |
-
-![Screenshot 2024-03-12 at 5.53.29 PM.png](lecture%208%20e6a0886e5a444f66b775b140443b4178/Screenshot_2024-03-12_at_5.53.29_PM.png)
 
 ## demand paging performance
 
@@ -205,8 +181,6 @@ using SSD, disk time is reduced to about 16 µs— this would impact the EAT by 
     - all 6 pages, 3 for each user, are used up already
     - we need to remove a page to free a frame to hold page M
 
-![Screenshot 2024-03-12 at 10.31.55 PM.png](lecture%208%20e6a0886e5a444f66b775b140443b4178/Screenshot_2024-03-12_at_10.31.55_PM.png)
-
 ## page replacement mechanism
 
 - modify page fault handler to include page replacement mechanism
@@ -216,8 +190,6 @@ using SSD, disk time is reduced to about 16 µs— this would impact the EAT by 
     - use a **modify or dirty bit** to indicate whether a page has been modified
 - use of page replacement mechanism completes the puzzle that allows for separation between logical memory and physical memory
     - now, there can be a very large virtual memory for a program, but that can be supported upon a much smaller physical memory
-
-![Screenshot 2024-03-12 at 10.33.10 PM.png](lecture%208%20e6a0886e5a444f66b775b140443b4178/Screenshot_2024-03-12_at_10.33.10_PM.png)
 
 - steps in page fault handling with page replacement
     
@@ -252,8 +224,6 @@ using SSD, disk time is reduced to about 16 µs— this would impact the EAT by 
 1,4,1,6,1,1,1,6,1,1,1,1,6,1,1,1,1,6,1,1
 - this is equivalent to 1,4,1,6,1,6,1,6,1,6,1, since consecutive accesses to the same page will not cause further page fault
 
-![Screenshot 2024-03-12 at 10.37.45 PM.png](lecture%208%20e6a0886e5a444f66b775b140443b4178/Screenshot_2024-03-12_at_10.37.45_PM.png)
-
 - if we have more free frames, then the number of page faults will be smaller — not necessarily true!
 
 # FIFO page replacement
@@ -262,23 +232,17 @@ using SSD, disk time is reduced to about 16 µs— this would impact the EAT by 
     - there is a simple implementation using a circular queue with a pointer pointing to the oldest page
     - in this example, there are 15 page faults
 
-![Screenshot 2024-03-12 at 10.39.08 PM.png](lecture%208%20e6a0886e5a444f66b775b140443b4178/Screenshot_2024-03-12_at_10.39.08_PM.png)
-
 # optimal page replacement
 
 - replace the page that will not be used for the longest period of time in future— it is clear that this will generate the smallest number of page faults
     - used as a benchmark to evaluate other algorithms
     - in this example, there are only 9 page faults
 
-![Screenshot 2024-03-12 at 10.41.00 PM.png](lecture%208%20e6a0886e5a444f66b775b140443b4178/Screenshot_2024-03-12_at_10.41.00_PM.png)
-
 # LRU page replacement
 
 - replace the page that has not been used for the longest period of time
 - LRU is very similar to using a mirror to look into the past to reflect what the future would look like— the behavior at time now+t can be reflected as now-t
 - in this example, there are 12 page faults
-
-![Screenshot 2024-03-12 at 10.43.08 PM.png](lecture%208%20e6a0886e5a444f66b775b140443b4178/Screenshot_2024-03-12_at_10.43.08_PM.png)
 
 - LRU is performing well in practical cases
     - experience shows that the trick of using the past for the future turns out to be good
@@ -299,15 +263,11 @@ using SSD, disk time is reduced to about 16 µs— this would impact the EAT by 
     - when a page needs to be replaced, look at the counters to determine the page with the smallest value to be replaced
 - example: red page would be replaced
 
-![Screenshot 2024-03-12 at 10.45.03 PM.png](lecture%208%20e6a0886e5a444f66b775b140443b4178/Screenshot_2024-03-12_at_10.45.03_PM.png)
-
 ## stack implementation
 
 - use stack of pages in double linked list with head/tail pointers— when a page is referenced, move it to the top of stack
 - replace the page at the bottom of the stack
     - example: replace red page at bottom
-
-![Screenshot 2024-03-12 at 10.45.52 PM.png](lecture%208%20e6a0886e5a444f66b775b140443b4178/Screenshot_2024-03-12_at_10.45.52_PM.png)
 
 - **counter implementation** has a storage overhead of a clock value with each page entry
     - clock value would increase in size
@@ -346,23 +306,6 @@ periods (00001111)
 - a selected victim page with **reference bit of one** will be given a second chance
 - both Unix and Linux use a variant of clock algorithm, but a few pages will be paged out together
 
-![Screenshot 2024-03-12 at 10.50.42 PM.png](lecture%208%20e6a0886e5a444f66b775b140443b4178/Screenshot_2024-03-12_at_10.50.42_PM.png)
-
-- example
-    - try the following reference string on FIFO, optimal, and LRU with 3 frames: 0 1 3 2 4 0 2 4 1 3 1 0
-        1. FIFO
-            
-            ![Screenshot 2024-03-12 at 10.53.54 PM.png](lecture%208%20e6a0886e5a444f66b775b140443b4178/Screenshot_2024-03-12_at_10.53.54_PM.png)
-            
-        2. optimal
-            
-            ![Screenshot 2024-03-12 at 10.54.02 PM.png](lecture%208%20e6a0886e5a444f66b775b140443b4178/Screenshot_2024-03-12_at_10.54.02_PM.png)
-            
-        3. LRU
-            
-            ![Screenshot 2024-03-12 at 10.54.10 PM.png](lecture%208%20e6a0886e5a444f66b775b140443b4178/Screenshot_2024-03-12_at_10.54.10_PM.png)
-            
-
 # allocation of frames
 
 - in page replacement algorithms, we would assume that we know the number of frames for each process and look for a page to be replaced— if a system has F free frames, how are they allocated to a set of n processes?
@@ -400,16 +343,12 @@ periods (00001111)
     - processes are busy **but they are just busy performing I/O**: swapping pages in and out, without doing any useful work
 - thrashing occurs when the **number of frames available is smaller than the total size of active pages** of the processes in the ready queue— the solution is to reduce the degree of multiprogramming, not increasing it
 
-![Screenshot 2024-03-12 at 11.01.23 PM.png](lecture%208%20e6a0886e5a444f66b775b140443b4178/Screenshot_2024-03-12_at_11.01.23_PM.png)
-
 # working-set
 
 - to reduce thrashing, we should ensure that there are sufficient frames for the active pages for the processes
 - the set of active pages for a process is called its **working-set**
     - let ∆ be the working-set window, e.g. 10000 instructions or 1 second
 - the working-set size of a process is the total number of pages referenced in the recent period of ∆ (= 10 in example below)— when the number of frames is smaller than the total working-set size, thrashing will occur—OS must select a victim process and suspend it, removing its frames for use by other processes
-
-![Screenshot 2024-03-12 at 11.03.33 PM.png](lecture%208%20e6a0886e5a444f66b775b140443b4178/Screenshot_2024-03-12_at_11.03.33_PM.png)
 
 # page fault frequency
 
@@ -419,5 +358,3 @@ periods (00001111)
         - if the **rate is too low**, there are more frames than sufficient, and OS could take away some frames to other processes
         - if the **rate is too high**, the process may suffer from thrashing, and OS will give more frames to it
         - if many processes have a high rate, OS will select a victim process for suspension and free its frames to other processes
-
-![Screenshot 2024-03-12 at 11.04.23 PM.png](lecture%208%20e6a0886e5a444f66b775b140443b4178/Screenshot_2024-03-12_at_11.04.23_PM.png)
