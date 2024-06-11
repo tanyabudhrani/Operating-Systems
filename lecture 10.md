@@ -1,7 +1,5 @@
 # lecture 10
 
-Created: March 26, 2024 3:27 AM
-
 ### producer/consumer
 
 - a very common view point of cooperating processes is the model of a producer and a consumer
@@ -297,9 +295,6 @@ while (true) do {
 
 - example
     
-    ![Screenshot 2024-03-26 at 7.02.26 PM.png](lecture%2010%20a8c069029bc344229ed0e3d15f2f53b2/Screenshot_2024-03-26_at_7.02.26_PM.png)
-    
-
 ## busy waiting solution
 
 - problems with common solutions to the critical section problem, including peterson’s algorithm:
@@ -426,5 +421,3 @@ while (true) do {
 	// consume removed item
 }
 ```
-
-![Screenshot 2024-03-26 at 7.13.32 PM.png](lecture%2010%20a8c069029bc344229ed0e3d15f2f53b2/Screenshot_2024-03-26_at_7.13.32_PM.png)
